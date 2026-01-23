@@ -4,8 +4,9 @@ import { AuthContext } from "./AuthProvider";
 export const DataContext = createContext(null)
 
 const DataProvider = ({ children }) => {
-    const {user} = use(AuthContext)
+    const { user } = use(AuthContext)
     const [dbUser, setdbUser] = useState(null)
+    const [products, setProducts] = useState(null)
     useEffect(() => {
         if (user?.uid) {
             fetch(`http://localhost:3000/users/${user.uid}`)
@@ -19,15 +20,17 @@ const DataProvider = ({ children }) => {
     }, [user?.uid, setdbUser])
 
 
-    const dataInfo={
+    const dataInfo = {
+        products,
+        setProducts,
         dbUser,
         setdbUser
     }
 
     return (
-            <DataContext.Provider value={dataInfo}>
-                {children}
-            </DataContext.Provider>
-        );
+        <DataContext.Provider value={dataInfo}>
+            {children}
+        </DataContext.Provider>
+    );
 }
 export default DataProvider

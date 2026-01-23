@@ -8,39 +8,67 @@ import Register from "../Components/AuthComponents/Register/Register";
 import Dashboard from "../Pages/Dashboard";
 import PrivateRoute from "./PrivateRoute";
 import AddProducts from "../Pages/AddProducts";
+import Loading from "../Components/Loading/Loading";
+import ProductDetails from "../Pages/ProductDetails";
+import UpdateProduct from "../Pages/UpdateProduct";
+import Checkout from "../Pages/Checkout";
 const router = createBrowserRouter([
     {
         path: "/",
-        element : <HomeLayout/>,
-        children : [
+        element: <HomeLayout />,
+        children: [
             {
-                index : true,
+                index: true,
                 path: '/',
-                element: <Home></Home>
+                element: <Home></Home>,
+                loader: ()=> fetch("http://localhost:3000/products/recent").then(res => res.json()),
+                hydrateFallbackElement: <Loading />
+                
             },
             {
                 path: "/products",
-                element: <Products/>
+                element: <Products />,
+                loader: () => fetch("http://localhost:3000/products").then(res => res.json()),
+                hydrateFallbackElement: <Loading />
             },
             {
                 path: "/addproducts",
-                element: <AddProducts/>
+                element: <AddProducts />
+            },
+            {
+                path: "/updateProduct/:id",
+                element: <UpdateProduct/>,
+                loader: ({ params }) => fetch(`http://localhost:3000/products/${params.id}`).then(res => res.json()),
+                hydrateFallbackElement: <Loading />
+            },
+            {
+                path: "/productdetails/:id",
+                element: <ProductDetails />,
+                loader: ({ params }) => fetch(`http://localhost:3000/products/${params.id}`).then(res => res.json()),
+                hydrateFallbackElement: <Loading />
             },
             {
                 path: "/contact",
-                element: <Contact/>
+                element: <Contact />
             },
             {
                 path: "/dashboard",
-                element: <PrivateRoute><Dashboard/></PrivateRoute>,
+                element: <PrivateRoute><Dashboard /></PrivateRoute>,
+            },
+            {
+                path: "/checkout/:id",
+                element: <PrivateRoute><Checkout/></PrivateRoute>,
+                loader: ({ params }) => fetch(`http://localhost:3000/products/${params.id}`).then(res => res.json()),
+                hydrateFallbackElement: <Loading />
+
             },
             {
                 path: "/login",
-                element: <Login/>
+                element: <Login />
             },
             {
                 path: "/register",
-                element: <Register/>
+                element: <Register />
             }
 
         ]

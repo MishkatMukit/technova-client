@@ -13,13 +13,13 @@ const Users = ({ users }) => {
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th></th>
+                            <th>Last Signin</th>
                         </tr>
                     </thead>
                     <tbody>
                         {/* row 1 */}
                         {
-                            users.map((user, index) => (
+                            users?.map((user, index) => (
                                 <tr  key= {user._id}>
                                     <td>
                                         <h1 className='font-bold flex pt-8 justify-center p-5'>{index + 1}</h1>
@@ -45,13 +45,14 @@ const Users = ({ users }) => {
                                     </td>
                                     <td>
                                         <p>{user.email}</p>
-                                        <p>{user.lastSignInTime}</p>
+                                        <p>{user.creationTime}</p>
                                         <br />
                                     </td>
                                     <th className='space-x-2'>
-                                        <button className="btn bg-blue-200 btn-xs">details</button>
-                                        <button className="btn bg-green-200 btn-xs">Update</button>
-                                        <button className="btn bg-red-200 btn-xs">Delete</button>
+                                        <p>{user.lastSignInTime}</p>
+                                        {/* <button className="btn bg-blue-200 btn-xs">details</button> */}
+                                        {/* <button className="btn bg-green-200 btn-xs">Update</button>
+                                        <button className="btn bg-red-200 btn-xs">Delete</button> */}
                                     </th>
                                 </tr>
 

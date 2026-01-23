@@ -6,11 +6,13 @@ import { IoMail } from "react-icons/io5";
 import Orders from '../Components/DashboardComponents/Orders/Orders';
 import Users from '../Components/DashboardComponents/Users/Users';
 import { DataContext } from '../Provider/AuthProvider/DataProvider';
+import AdminOrders from '../Components/DashboardComponents/Orders/AdminOrders';
 
 const Dashboard = () => {
-    const {dbUser, setdbUser } = use(DataContext)
+    const { dbUser, setdbUser } = use(DataContext)
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true);
+    const [orders, setOrders] = useState([])
     //console.log(dbUser);
     useEffect(() => {
         fetch("http://localhost:3000/users")
@@ -19,8 +21,13 @@ const Dashboard = () => {
                 setUsers(data);
                 setLoading(false);
             });
-    }, []);
-    
+    }, [])
+    useEffect(() => {
+        fetch(`http://localhost:3000/orders?email=${dbUser?.email}`)
+            .then(res => res.json())
+            .then(data => setOrders(data));
+    }, [dbUser?.email]);
+    const isAdmin = dbUser?.role === "admin"
     return (
         <div className='mt-16'>
             <div className='mt-24 max-w-[90%] mx-auto relative'>
@@ -35,21 +42,26 @@ const Dashboard = () => {
                             <p className='flex items-center gap-2 text-accent'><FaPhoneAlt />{dbUser?.phone}</p>
                         </div>
                     </div>
-                    <button className='cursor-pointer text-secondary absolute top-5 right-5'><FiEdit size={24} /></button>
+                    {/* <button className='cursor-pointer text-secondary absolute top-5 right-5'><FiEdit size={24} /></button> */}
                 </div>
-                {
-                    dbUser?.role == "admin" && <div>
 
+                {
+                    isAdmin ? <div>
                         <div className="tabs tabs-border">
                             <input type="radio" name="my_tabs_1" className="tab" aria-label="Users" defaultChecked />
                             <div className="tab-content border border-secondary/20 shadow-sm p-5 mt-2"><Users users={users}></Users></div>
 
-                            <input type="radio" name="my_tabs_1" className="tab" aria-label="Orders"  />
-                            <div className="tab-content border border-secondary/20 shadow-sm p-5 mt-2"><Orders></Orders></div>
-
+                            <input type="radio" name="my_tabs_1" className="tab" aria-label="Orders" />
+                            <div className="tab-content border border-secondary/20 shadow-sm p-5 mt-2"><AdminOrders></AdminOrders></div>
+                        </div>
+                    </div> : <div>
+                        <div className="tabs tabs-border">
+                            <input type="radio" name="my_tabs_1" className="tab" defaultChecked aria-label="Orders" />
+                            <div className="tab-content border border-secondary/20 shadow-sm p-5 mt-2"><Orders orders={orders}></Orders></div>
                         </div>
                     </div>
                 }
+
             </div>
         </div>
     );

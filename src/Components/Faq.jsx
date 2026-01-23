@@ -2,7 +2,7 @@ import React from 'react';
 import faqImg from '../assets/resize-images/faq.png'
 const Faq = () => {
     return (
-        <div className="py-12">
+        <div className="py-12 max-w-[90%] mx-auto">
             <div className="text-center max-w-200 mx-auto space-y-2 container">
                 <h2 className="text-4xl font-bold text-secondary">
                     Frequently Asked Question

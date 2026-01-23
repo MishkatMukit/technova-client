@@ -10,9 +10,9 @@ const Banner = () => {
                     src={logo_1}
                     className="object-contain" />
                     <div className="container absolute left-16 right-5 top-1/2 -translate-y-1/2 transform text-black1">
-                        <div className="text-xl md:text-5xl pb-2 font-bold  space-y-2">
+                        <div className="text-lg md:text-5xl pb-2 font-bold  md:space-y-2">
                             <h1>Premium Tech.</h1>
-                            <h1 className="">Unbeatable Prices.</h1>
+                            <h1 className="text-secondary">Unbeatable Prices.</h1>
                             <h1 className="">Limited Stock.</h1>
 
                         </div>
@@ -34,7 +34,7 @@ const Banner = () => {
                     src={logo_2}
                     className="object-contain" />
                     <div className="container absolute left-16 right-5 top-1/2 -translate-y-1/2 transform text-black1">
-                        <div className="text-2xl md:text-5xl pb-2 font-bold  space-y-2">
+                        <div className="text-lg md:text-5xl pb-2 font-bold  md:space-y-2">
                             <h1>Elevate</h1>
                             <h1 className="">Your Everyday</h1>
                             <h1 className="">With <span className="text-secondary">Premium Tech</span></h1>
