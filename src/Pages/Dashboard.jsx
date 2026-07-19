@@ -23,7 +23,7 @@ const Dashboard = () => {
             });
     }, [])
     useEffect(() => {
-        fetch(`https://technova-server.vercel.app/orders?email=${dbUser?.email}`)
+        fetch(`https://technova-server.vercel.app/buyerOrders?email=${dbUser?.email}`)
             .then(res => res.json())
             .then(data => setOrders(data));
     }, [dbUser?.email]);

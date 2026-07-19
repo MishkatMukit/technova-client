@@ -29,12 +29,12 @@ const Login = () => {
         }).catch(() => setError("Invalid email or password combination"))
 
     }
-    const handleGoogleLogin = () => {
-        googleSignIn().then(() => {
-            navigate(location.state ? location.state : "/")
-        }).catch(() => setError("Login failed"))
+    // const handleGoogleLogin = () => {
+    //     googleSignIn().then(() => {
+    //         navigate(location.state ? location.state : "/")
+    //     }).catch(() => setError("Login failed"))
 
-    }
+    // }
     return (
         <div className='mt-16'>
             <div className="min-h-screen w-full relative">
@@ -72,10 +72,10 @@ const Login = () => {
                                 <input className='btn btn-secondary shadow-none w-full my-3' type="submit" />
                                 <p className='text-center font-medium'>Don't have an account? <Link className=' font-medium text-secondary' to="/register">Register</Link></p>
                             </form>
-                            <button onClick={handleGoogleLogin} className="btn bg-white text-black border-[#e5e5e5]">
+                            {/* <button onClick={handleGoogleLogin} className="btn bg-white text-black border-[#e5e5e5]">
                                 <FcGoogle />
                                 Login with Google
-                            </button>
+                            </button> */}
 
                         </div>
                     </div>
