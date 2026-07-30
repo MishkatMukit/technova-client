@@ -20,7 +20,7 @@ const Developer = () => {
                 Meet The Devs
             </h2>
 
-            <div className="flex flex-col items-center justify-between md:flex-row py-4 gap-5">
+            <div className="flex flex-col items-center justify-center md:flex-row py-4 gap-5">
                 {/* Developer 1 */}
                 <div className="w-full max-w-sm rounded-xl shadow-xl mt-6 border border-blue-200">
                     <div className="h-100 bg-white dark:bg-gray-900 rounded-lg p-6 flex flex-col items-center text-center">
@@ -125,17 +125,17 @@ const Developer = () => {
                     <div className="h-100 bg-white dark:bg-gray-900 rounded-lg p-6 flex flex-col items-center text-center border border-blue-200">
                         <img
                             className="w-24 h-24 rounded-full border-2 border-blue-500 object-cover"
-                            src="https://i.postimg.cc/269DjMD9/482031025-3842122292719692-5080451918553481453-n.jpg"
+                            src="https://avatars.githubusercontent.com/u/63724484?v=4"
                             alt="Shoriful Haque nobin"
                         />
 
                         <h2 className="text-2xl font-bold text-gray-800 dark:text-white my-4">
-                            Shoriful Hoque Nobin
+                            Tamizullah Kabbo
                         </h2>
 
                         <div className="flex gap-4">
                             <p className="text-black dark:text-white font-semibold">
-                                ID : C233016
+                                ID : C233263
                             </p>
                             <p className="text-black dark:text-white font-semibold">
                                 Department : CSE
@@ -149,7 +149,7 @@ const Developer = () => {
 
                         <div className="flex gap-4 mt-5">
                             <a
-                                href="https://github.com/Shoriful12win"
+                                href="https://github.com/kabbotalukder"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-600 hover:text-black dark:text-gray-300 dark:hover:text-white transition"
@@ -169,7 +169,7 @@ const Developer = () => {
                     </div>
                 </div>
                 {/* Dev 4 */}
-                <div className="w-full max-w-sm rounded-xl shadow-xl mt-6">
+                {/* <div className="w-full max-w-sm rounded-xl shadow-xl mt-6">
                     <div className="h-100 bg-white dark:bg-gray-900 rounded-lg p-6 flex flex-col items-center text-center border border-blue-200">
                         <img
                             className="w-24 h-24 rounded-full border-2 border-blue-500 object-cover"
@@ -217,7 +217,7 @@ const Developer = () => {
                             </a>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );
