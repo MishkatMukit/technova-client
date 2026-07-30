@@ -50,7 +50,7 @@ const UpdateProduct = () => {
                     timer: 3000
                 });
             }
-            console.log("data after update : ", data)
+            // console.log("data after update : ", data)
         })
 
     }

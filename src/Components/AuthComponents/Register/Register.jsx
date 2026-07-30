@@ -65,7 +65,7 @@ const Register = () => {
                 body: JSON.stringify(userInfo)
             }).then(res => res.json()).then(data => {
                 if (data.insertedId) {
-                    console.log("data after profile save ", data)
+                    // console.log("data after profile save ", data)
                     Swal.fire({
                         position: "center",
                         icon: "success",
@@ -86,7 +86,7 @@ const Register = () => {
                 }
             }).catch((err) => {
                 setError("Failed to save user information")
-                console.log(err)
+                // console.log(err)
             })
         }).catch((err) => {
             setError(err.message)

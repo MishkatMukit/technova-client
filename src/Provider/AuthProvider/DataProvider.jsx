@@ -12,12 +12,33 @@ const DataProvider = ({ children }) => {
             fetch(`https://technova-server.vercel.app/users/${user.uid}`)
                 .then(res => res.json())
                 .then(data => {
-                    // console.log("User data from MongoDB:", data)
-                    setdbUser(data)
+                    if (data && data._id) {
+                        setdbUser(data)
+                    } else {
+                        setdbUser({
+                            name: user.displayName || "User",
+                            email: user.email,
+                            photoUrl: user.photoURL || "https://i.postimg.cc/DyNfBbNQ/user.png",
+                            phone: "",
+                            address: "",
+                            role: "user",
+                            firebase_uid: user.uid
+                        })
+                    }
                 })
-                .catch(err => console.error("Error fetching user:", err))
+                .catch(() => {
+                    setdbUser({
+                        name: user.displayName || "User",
+                        email: user.email,
+                        photoUrl: user.photoURL || "https://i.postimg.cc/DyNfBbNQ/user.png",
+                        phone: "",
+                        address: "",
+                        role: "user",
+                        firebase_uid: user.uid
+                    })
+                })
         }
-    }, [user?.uid, setdbUser])
+    }, [user?.uid])
 
 
     const dataInfo = {

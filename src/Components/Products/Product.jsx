@@ -7,19 +7,22 @@ import { Link } from 'react-router';
 
 const Product = ({ product }) => {
 
-    const { name, price, _id, details, photo, brand } = product
-    // const {dbUser } = use(DataContext)
-    // const isAdmin = dbUser?.role === "admin"
-    
+    const { name, price, _id, details, photo, brand, status, quantity } = product
+    const isAvailable = status === "active" && quantity > 0
 
     return (
         <div className="card bg-base-100 w-80 border border-blue-200 shadow-sm hover:shadow-xl transition-shadow duration-300">
-            <figure className="px-4 pt-4">
+            <figure className="px-4 pt-4 relative">
                 <img
                     src={photo}
                     alt={name}
                     className="rounded-xl h-48 w-full object-cover"
                 />
+                {!isAvailable && (
+                    <div className="absolute inset-0 rounded-xl bg-black/40 flex items-center justify-center">
+                        <span className="badge badge-error badge-lg text-white font-bold px-4 py-3">Out of Stock</span>
+                    </div>
+                )}
             </figure>
             {/* card body */}
             <div className="card-body  px-4" >
@@ -41,7 +44,11 @@ const Product = ({ product }) => {
                 {/* Action Buttons */}
                 <div className='flex justify-between gap-2 items-center'>
 
-                    <Link to={`/checkout/${_id}`}className='btn btn-secondary shadow-none flex-1'>Buy now</Link>
+                    {isAvailable ? (
+                        <Link to={`/checkout/${_id}`} className='btn btn-secondary shadow-none flex-1'>Buy now</Link>
+                    ) : (
+                        <button disabled className='btn btn-secondary shadow-none flex-1 btn-disabled opacity-60'>Buy now</button>
+                    )}
                     <div className="flex  justify-end  gap-1">
                         <Link to={`/productdetails/${_id}`}
                             className="btn  bg-white border-blue-200 btn-square"

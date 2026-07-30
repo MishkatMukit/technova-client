@@ -29,12 +29,38 @@ const Login = () => {
         }).catch(() => setError("Invalid email or password combination"))
 
     }
-    // const handleGoogleLogin = () => {
-    //     googleSignIn().then(() => {
-    //         navigate(location.state ? location.state : "/")
-    //     }).catch(() => setError("Login failed"))
+    const handleGoogleLogin = () => {
+        googleSignIn().then((result) => {
+            const userInfo = {
+                name: result.user?.displayName || "User",
+                email: result.user?.email,
+                photoUrl: result.user?.photoURL || "https://i.postimg.cc/DyNfBbNQ/user.png",
+                phone: "",
+                address: "",
+                firebase_uid: result.user?.uid,
+                creationTime: result.user?.metadata?.creationTime,
+                lastSignInTime: result.user?.metadata?.lastSignInTime
+            }
+            fetch("https://technova-server.vercel.app/users", {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify(userInfo)
+            }).catch(() => {})
+            Swal.fire({
+                position: "top-center",
+                icon: "success",
+                title: "Successfully Logged in!",
+                showConfirmButton: false,
+                timer: 2000
+            }).then(() => {
+                navigate(location.state ? location.state : "/")
+            });
+        }).catch((err) => {
+            if (err.code === "auth/popup-closed-by-user") return;
+            setError("Google login failed")
+        })
 
-    // }
+    }
     return (
         <div className='mt-16'>
             <div className="min-h-screen w-full relative">
@@ -72,10 +98,10 @@ const Login = () => {
                                 <input className='btn btn-secondary shadow-none w-full my-3' type="submit" />
                                 <p className='text-center font-medium'>Don't have an account? <Link className=' font-medium text-secondary' to="/register">Register</Link></p>
                             </form>
-                            {/* <button onClick={handleGoogleLogin} className="btn bg-white text-black border-[#e5e5e5]">
+                            <button onClick={handleGoogleLogin} className="btn bg-white text-black border-[#e5e5e5]">
                                 <FcGoogle />
                                 Login with Google
-                            </button> */}
+                            </button>
 
                         </div>
                     </div>

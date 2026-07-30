@@ -7,12 +7,14 @@ import Orders from '../Components/DashboardComponents/Orders/Orders';
 import Users from '../Components/DashboardComponents/Users/Users';
 import { DataContext } from '../Provider/AuthProvider/DataProvider';
 import AdminOrders from '../Components/DashboardComponents/Orders/AdminOrders';
+import EditProfile from '../Components/DashboardComponents/EditProfile';
 
 const Dashboard = () => {
     const { dbUser, setdbUser } = use(DataContext)
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true);
     const [orders, setOrders] = useState([])
+    const [showEditProfile, setShowEditProfile] = useState(false)
     //console.log(dbUser);
     useEffect(() => {
         fetch("https://technova-server.vercel.app/users")
@@ -23,9 +25,15 @@ const Dashboard = () => {
             });
     }, [])
     useEffect(() => {
-        fetch(`https://technova-server.vercel.app/buyerOrders?email=${dbUser?.email}`)
-            .then(res => res.json())
-            .then(data => setOrders(data));
+        if (!dbUser?.email) return
+        const fetchOrders = () => {
+            fetch(`https://technova-server.vercel.app/buyerOrders?email=${dbUser?.email}`)
+                .then(res => res.json())
+                .then(data => setOrders(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))));
+        }
+        fetchOrders()
+        const interval = setInterval(fetchOrders, 10000)
+        return () => clearInterval(interval)
     }, [dbUser?.email]);
     const isAdmin = dbUser?.role === "admin"
     return (
@@ -41,8 +49,9 @@ const Dashboard = () => {
                             <p className='flex items-center gap-2 text-accent'><FaMapLocationDot />{dbUser?.address}</p>
                             <p className='flex items-center gap-2 text-accent'><FaPhoneAlt />{dbUser?.phone}</p>
                         </div>
+                        <button onClick={() => setShowEditProfile(true)} className='cursor-pointer text-secondary absolute top-5 right-5'><FiEdit size={24} /></button>
                     </div>
-                    {/* <button className='cursor-pointer text-secondary absolute top-5 right-5'><FiEdit size={24} /></button> */}
+                    <EditProfile isOpen={showEditProfile} onClose={() => setShowEditProfile(false)} />
                 </div>
 
                 {

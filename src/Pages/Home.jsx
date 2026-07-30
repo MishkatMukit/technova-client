@@ -11,8 +11,8 @@ const Home = () => {
     const {user} = use(AuthContext)
     const {dbUser} = use(DataContext)
 
-    console.log("database",dbUser)
-    console.log("firebase",user);
+    // console.log("database",dbUser)
+    // console.log("firebase",user);
     return (
         <div className='mt-16'>
             <Banner></Banner>

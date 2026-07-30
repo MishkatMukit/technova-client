@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 const ProductDetails = () => {
     const product = useLoaderData()
-    console.log(product);
+    // console.log(product);
     const { _id, name, brand, category, price, details, photo, quantity, status, createdAt } = product;
     const { dbUser, products, setProducts } = use(DataContext)
     const isAdmin = dbUser?.role === "admin"
@@ -28,7 +28,7 @@ const ProductDetails = () => {
                 fetch(`https://technova-server.vercel.app/products/${id}`, {
                     method: "DELETE"
                 }).then(res => res.json()).then(data => {
-                    console.log(data)
+                    // console.log(data)
                     if (data.deletedCount) {
                         const remainingProducts = products.filter(product => product._id !== id)
                         setProducts(remainingProducts)

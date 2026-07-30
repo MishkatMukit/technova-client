@@ -3,9 +3,14 @@ import Swal from 'sweetalert2';
 
 const AdminOrders = () => {
     const [orders, setOrders] = useState([])
+    const fetchOrders = () => {
+        fetch("https://technova-server.vercel.app/orders").then(res => res.json()).then(data =>
+            setOrders(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)))
+        )
+    }
     useEffect(() => {
-        fetch("https://technova-server.vercel.app/orders").then(res => res.json()).then(data => setOrders(data))
-    }, [orders])
+        fetchOrders()
+    }, [])
     const onUpdateStatus = async (orderId, status) => {
         const result = await Swal.fire({
             title: "Are you sure?",
@@ -29,7 +34,9 @@ const AdminOrders = () => {
 
         if (data.modifiedCount) {
             Swal.fire("Updated!", "Order status updated", "success");
-            //refetchOrders(); // or update local state
+            setOrders(prev => prev.map(order =>
+                order._id === orderId ? { ...order, status } : order
+            ))
         }
     };
     return (

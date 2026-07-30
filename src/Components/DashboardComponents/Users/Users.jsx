@@ -1,6 +1,6 @@
 
 const Users = ({ users }) => {
-    console.log(users);
+    // console.log(users);
     return (
         <div>
             {/* <h1 className='p-5'>{users.length} users</h1> */}
